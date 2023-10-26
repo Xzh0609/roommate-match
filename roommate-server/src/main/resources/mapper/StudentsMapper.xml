@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecut.xzh.mapper.MessageMapper">
+
+    <select id="pageQuery" resultType="com.ecut.xzh.vo.StudentVO"
+            parameterType="com.ecut.xzh.dto.StudentPageDTO">
+        select students.id, number, name, qq, gender, create_time, update_time, remarks, major, password,
+               smoke, sleep_begin_time, sleep_end_time, get_up_begin_time, get_up_end_time,
+               student_id from students,habits
+        <where>
+            students.id = habits.student_id
+            <if test="number != null and number != ''">
+                and number like concat('%',#{number},'%')
+            </if>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="qq != null and qq != ''">
+                and qq like concat('%',#{qq},'%')
+            </if>
+            <if test="major != null and major != ''">
+                and major like concat('%',#{major},'%')
+            </if>
+
+            <if test="gender != null and gender != ''">
+                and gender =#{gender}
+            </if>
+            <if test="smoke != null and smoke != ''">
+                and smoke =#{smoke}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks like concat('%',#{remarks},'%')
+            </if>
+            <if test="sleepBeginTime != null">
+                and sleep_begin_time &gt;= #{sleepBeginTime}
+            </if>
+            <if test="sleepEndTime != null">
+                and if(sleep_end_time &lt;= '7:00:00', sleep_end_time + INTERVAL '24' HOUR, sleep_end_time) &lt;= #{sleepEndTimeOver24}
+            </if>
+
+            <if test="getUpBeginTime != null">
+                and get_up_begin_time &gt;= #{getUpBeginTime}
+            </if>
+            <if test="getUpEndTime != null">
+                and get_up_end_time &lt;= #{getUpEndTime}
+            </if>
+        </where>
+        order by number != #{numberId}, update_time desc
+        <!--前端返回number，通过number查询当前是哪个学生的账号，将其排在查询结果的第一位-->
+    </select>
+
+    <update id="updateById">
+        update students
+        <set>
+            <if test="number != null">number=#{number},</if>
+            <if test="name != null">name=#{name},</if>
+            <if test="phone != null">phone=#{phone},</if>
+            <if test="qq != null">qq=#{qq},</if>
+            <if test="major != null">major=#{major},</if>
+            <if test="gender != null">gender=#{gender},</if>
+            <if test="remarks != null">remarks=#{remarks},</if>
+            <if test="updateTime != null">update_Time=#{updateTime},</if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>

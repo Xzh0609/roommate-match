@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecut.xzh.mapper.HabitsMapper">
+
+
+    <update id="updateByStudentId" parameterType="com.ecut.xzh.entity.Habits">
+        update habits
+        <set>
+            /*student_id = student_id,<!--防止以下全为空-->*/
+            <if test="smoke != null">smoke=#{smoke},</if>
+            sleep_begin_time=#{sleepBeginTime},
+            sleep_end_time=#{sleepEndTime},
+            get_up_begin_time=#{getUpBeginTime},
+            get_up_end_time=#{getUpEndTime},
+        </set>
+        where student_id=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    color: #555;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+}
+.background-login {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center 250px;
+  background-image: url("@/assets/banner-login.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;/* 1528px */
+}
+.background-register {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center center;
+  background-image: url("@/assets/banner-register.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;/* 1528px */
+}

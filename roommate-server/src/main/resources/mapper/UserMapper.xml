@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecut.xzh.mapper.UserMapper">
+
+
+    <insert id="insert" parameterType="com.ecut.xzh.entity.Student">
+        insert into students (number, password, phone, create_time, update_time)
+        values (#{number}, #{password}, #{phone}, #{createTime}, #{updateTime})
+    </insert>
+    <update id="update">
+        update students
+        <set>
+            <if test="number != null">number=#{number},</if>
+            <if test="name != null">name=#{name},</if>
+            <if test="qq != null">phone=#{phone},</if>
+            <if test="phone != null">qq=#{qq},</if>
+            <if test="major != null">major=#{major},</if>
+            <if test="gender != null">gender=#{gender},</if>
+            <if test="remarks != null">remarks=#{remarks},</if>
+            <if test="updateTime != null">update_Time=#{updateTime},</if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>
